@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CalorieCalculator.css'; // Ensure this file exists
+import calorieData from '../data/calorieData.json';
 
 export const CalorieCalculator = () => {
   console.log('CalorieCalculator rendered'); // Debugging line
@@ -11,6 +12,9 @@ export const CalorieCalculator = () => {
   const [bloodType, setBloodType] = useState('');
   const [showModal, setShowModal] = useState(false);
 
+  const [product, setProduct] = useState('');
+  const [calories, setCalories] = useState(null);
+
   const handleSubmit = event => {
     event.preventDefault();
     setShowModal(true);
@@ -18,6 +22,18 @@ export const CalorieCalculator = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  // Function to find calories for the product
+  const findCalories = () => {
+    const productData = calorieData.find(
+      item => item.title.toLowerCase() === product.toLowerCase()
+    );
+    if (productData) {
+      setCalories(productData.calories);
+    } else {
+      setCalories('Product not found');
+    }
   };
 
   return (
@@ -95,6 +111,18 @@ export const CalorieCalculator = () => {
         </div>
         <button type="submit">Start losing weight</button>
       </form>
+
+      {/* Add Product Lookup */}
+      <div>
+        <input
+          type="text"
+          value={product}
+          onChange={e => setProduct(e.target.value)}
+          placeholder="Enter product name"
+        />
+        <button onClick={findCalories}>Find Calories</button>
+        {calories !== null && <p>Calories: {calories}</p>}
+      </div>
 
       {showModal && (
         <div className="modal">

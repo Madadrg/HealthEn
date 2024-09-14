@@ -4,6 +4,7 @@ import { Header } from './Header';
 import { Login } from './Login';
 import { Register } from './Register';
 import { CalorieCalculator } from './CalorieCalculator';
+import Diary from './Diary';
 
 export const App = () => {
   return (
@@ -14,6 +15,7 @@ export const App = () => {
         <Route path="/" element={<CalorieCalculator />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/diary" element={<Diary />} />
       </Routes>
     </Router>
   );

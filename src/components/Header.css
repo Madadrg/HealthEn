@@ -29,3 +29,18 @@ nav a:hover {
 .logo {
   height: 40px;
 }
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+}
+
+nav a:last-child {
+  margin-left: 20px;
+}
