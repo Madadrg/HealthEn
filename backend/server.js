@@ -8,9 +8,9 @@ const app = express();
 // Detailed CORS configuration
 app.use(
   cors({
-    origin: 'http://localhost:3008', // Update this to match your frontend's URL
-    methods: 'GET,POST,PUT,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type,Authorization',
+    origin: 'http://localhost:3003', // Update to your frontend's URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 

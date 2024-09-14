@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 export const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate for redirection
 
   const handleSubmit = async event => {
     event.preventDefault();
-
     setError(''); // Reset error state
 
     try {
@@ -17,7 +18,7 @@ export const Register = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password }), // Send form data to backend
       });
 
       if (!response.ok) {
@@ -26,9 +27,9 @@ export const Register = () => {
         return;
       }
 
-      const result = await response.json();
-      alert('Registration successful!');
-      console.log('Result:', result);
+      // Registration successful, redirect to login
+      alert('Registration successful! Redirecting to login...');
+      navigate('/login'); // Redirect user to the login page after successful registration
     } catch (error) {
       console.error('Error:', error);
       setError('Registration failed. Please try again.');
@@ -37,6 +38,7 @@ export const Register = () => {
 
   return (
     <div>
+      <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
