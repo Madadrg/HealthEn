@@ -112,18 +112,6 @@ export const CalorieCalculator = () => {
         <button type="submit">Start losing weight</button>
       </form>
 
-      {/* Add Product Lookup */}
-      <div>
-        <input
-          type="text"
-          value={product}
-          onChange={e => setProduct(e.target.value)}
-          placeholder="Enter product name"
-        />
-        <button onClick={findCalories}>Find Calories</button>
-        {calories !== null && <p>Calories: {calories}</p>}
-      </div>
-
       {showModal && (
         <div className="modal">
           <div className="modal-content">
