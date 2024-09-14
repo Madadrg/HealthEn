@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Form.css'; // Import CSS for styling
 
 export const Register = () => {
   const [name, setName] = useState('');
@@ -9,39 +8,60 @@ export const Register = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
+
+    setError(''); // Reset error state
+
     try {
-      // API call here
-      // Include the name in the registration request
-    } catch (err) {
+      const response = await fetch('http://localhost:3000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.message || 'An error occurred');
+        return;
+      }
+
+      const result = await response.json();
+      alert('Registration successful!');
+      console.log('Result:', result);
+    } catch (error) {
+      console.error('Error:', error);
       setError('Registration failed. Please try again.');
     }
   };
 
   return (
     <div>
-      <h2>Register</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <label>Name:</label>
         <input
           type="text"
+          placeholder="Name"
           value={name}
           onChange={e => setName(e.target.value)}
+          required
         />
-        <label>Email:</label>
         <input
           type="email"
+          placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          required
         />
-        <label>Password:</label>
         <input
           type="password"
+          placeholder="Password"
           value={password}
           onChange={e => setPassword(e.target.value)}
+          required
         />
         <button type="submit">Register</button>
       </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };
